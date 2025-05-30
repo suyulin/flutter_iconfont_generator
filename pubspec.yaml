@@ -24,6 +24,9 @@ dev_dependencies:
   analyzer: ^5.0.0
   build: ^2.3.0
   yaml: ^3.1.0
+  build_test: ^2.1.0
+  http: ^0.13.0
+  process: ^4.2.0
 
 # Iconfont configuration
 iconfont:
