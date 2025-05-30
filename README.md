@@ -1,101 +1,145 @@
 # Flutter IconFont Generator
 
-> 将 iconfont.cn 的图标转换成 Flutter Widget 的纯 Dart 代码生成工具。
+[![pub package](https://img.shields.io/pub/v/flutter_iconfont_generator.svg)](https://pub.dev/packages/flutter_iconfont_generator)
+[![popularity](https://badges.bar/flutter_iconfont_generator/popularity)](https://pub.dev/packages/flutter_iconfont_generator/score)
+[![likes](https://badges.bar/flutter_iconfont_generator/likes)](https://pub.dev/packages/flutter_iconfont_generator/score)
+[![pub points](https://badges.bar/flutter_iconfont_generator/pub%20points)](https://pub.dev/packages/flutter_iconfont_generator/score)
 
-![Icons Demo](https://github.com/fwh1990/flutter-iconfont-cli/blob/master/images/icons.png?raw=true)
+> A Dart/Flutter code generator for iconfont.cn icons. Convert iconfont.cn icons to Flutter widgets with SVG rendering, supporting multi-color icons and null safety.
 
-## ✨ 特性
+## ✨ Features
 
-- 🚀 **纯 Dart 实现** - 无需 Node.js，使用 build_runner 进行代码生成
-- 🎨 **多色彩支持** - 支持渲染多色彩图标，支持自定义颜色
-- 📦 **纯组件** - 不依赖字体文件，使用 SVG 渲染，体积更小
-- 🔄 **自动化生成** - 自动从 iconfont.cn 获取最新图标并生成 Dart 代码
-- 🛡️ **Null Safety** - 完全支持 Dart null safety
-- ⚡ **多种使用方式** - 支持命令行工具和 build_runner 两种生成方式
+- 🚀 **Pure Dart Implementation** - No Node.js dependency, uses build_runner for code generation
+- 🎨 **Multi-color Support** - Render multi-color icons with custom color support  
+- 📦 **Pure Components** - No font files needed, uses SVG rendering for smaller bundle size
+- 🔄 **Automated Generation** - Automatically fetch latest icons from iconfont.cn and generate Dart code
+- 🛡️ **Null Safety** - Full Dart null safety support
+- ⚡ **Multiple Usage Methods** - Support for command-line tools and build_runner
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 1. 配置依赖
+### 1. Add Dependencies
 
-在 `pubspec.yaml` 中添加以下依赖：
+Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: ^2.0.0  # SVG 渲染支持
-  http: ^0.13.0        # 网络请求
-  xml: ^6.0.0          # XML 解析
-  path: ^1.8.0         # 路径处理
+  flutter_svg: ^2.0.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  build_runner: ^2.3.0  # 代码生成
-  yaml: ^3.1.0          # YAML 解析
-
-# IconFont 配置
-iconfont:
-  symbol_url: "//at.alicdn.com/t/font_xxx.js"  # 从 iconfont.cn 获取
-  save_dir: "./lib/iconfont"                    # 输出目录
-  trim_icon_prefix: "icon"                      # 移除图标名前缀
-  default_icon_size: 18                         # 默认图标大小
-  null_safety: true                             # 启用 null safety
+  flutter_iconfont_generator: ^2.0.0
+  build_runner: ^2.4.0
 ```
 
-### 2. 获取 iconfont.cn 链接
+### 2. Configure
 
-1. 登录 [iconfont.cn](https://iconfont.cn)
-2. 创建项目或选择现有项目
-3. 点击 "Font class" 或 "Symbol" 选项卡
-4. 复制生成的 JavaScript 链接
+Add iconfont configuration to your `pubspec.yaml`:
 
-![Symbol URL](https://github.com/fwh1990/flutter-iconfont-cli/blob/master/images/symbol-url.png?raw=true)
+```yaml
+# IconFont configuration
+iconfont:
+  symbol_url: "//at.alicdn.com/t/font_xxx.js"  # Get from iconfont.cn
+  save_dir: "./lib/iconfont"                    # Output directory
+  trim_icon_prefix: "icon"                      # Remove icon name prefix
+  default_icon_size: 18                         # Default icon size
+  null_safety: true                             # Enable null safety
+```
 
-### 3. 生成图标代码
+### 4. Generate Icon Code
 
 ```bash
-# 安装依赖
+# Install dependencies
 dart pub get
 
-# 方法一：使用简化生成器（推荐）
-dart run bin/simple_generator.dart
-
-# 方法二：使用 build_runner
+# Method 1: Using build_runner (recommended)
 dart run build_runner build
 
-# 方法三：使用完整生成器
-dart run bin/iconfont_generator.dart
+# Method 2: Using simple generator
+dart run flutter_iconfont_generator:simple_generator
+
+# Method 3: Using full generator
+dart run flutter_iconfont_generator:iconfont_generator
 ```
 
-## 📖 使用方法
+## 📖 Usage
 
-### 基本用法
+### Basic Usage
 
 ```dart
 import 'package:your_app/iconfont/iconfont.dart';
 
-// 基本使用
+// Basic usage
 IconFont(IconNames.home)
 
-// 指定大小
+// With size
 IconFont(IconNames.user, size: 24)
+
+// With color
+IconFont(IconNames.settings, size: 32, color: '#ff0000')
 ```
 
-### 单色图标
+### Single Color Icons
 
 ```dart
-// 使用自定义颜色
+// Using custom color
 IconFont(
   IconNames.alipay,
   size: 32,
-  color: '#ff0000',
+  color: 'ff0000',  // Without # prefix
 )
 ```
 
-![One Color Icon](https://github.com/fwh1990/flutter-iconfont-cli/blob/master/images/one-color-icon.png?raw=true)
+### Multi-color Icons
 
-### 多色图标
+```dart
+// Multi-color icons
+IconFont(
+  IconNames.colorful_icon,
+  size: 32,
+  colors: ['ff0000', '00ff00', '0000ff'],
+)
+```
+
+## 🔧 Configuration Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `symbol_url` | String | - | Required. JavaScript URL from iconfont.cn |
+| `save_dir` | String | `./lib/iconfont` | Output directory for generated files |
+| `trim_icon_prefix` | String | `icon` | Prefix to remove from icon names |
+| `default_icon_size` | int | `18` | Default size for icons |
+| `null_safety` | bool | `true` | Enable null safety in generated code |
+
+## 🏗️ Build Runner Integration
+
+Create `build.yaml` in your project root:
+
+```yaml
+targets:
+  $default:
+    builders:
+      flutter_iconfont_generator:iconfont_builder:
+        enabled: true
+```
+
+## 📱 Example
+
+Check out the [example app](example_app/) for a complete implementation showing all features.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Thanks to [iconfont.cn](https://iconfont.cn) for providing excellent icon service
+- Inspired by similar tools in the React ecosystem
 
 ```dart
 // 多色彩图标

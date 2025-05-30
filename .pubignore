@@ -1,0 +1,38 @@
+# Files and directories to exclude from pub package
+
+# Example and test files
+example/
+example_app/
+
+# Generated icons (users will generate their own)
+lib/iconfont/iconfont.dart
+
+# Debug and development files
+debug_*.dart
+validate_*.dart
+verify_*.dart
+final_report.dart
+run_all_tests.dart
+
+# Test reports and documentation
+TEST_EXECUTION_REPORT.md
+FINAL_TEST_SUMMARY.md
+PROJECT_COMPLETION_REPORT.md
+
+# Build artifacts
+build/
+.dart_tool/
+
+# IDE files
+*.iml
+.vscode/
+.idea/
+
+# snapshots directory
+snapshots/
+
+# Images directory (if not needed for pub.dev)
+images/
+
+# Local configuration files
+pubspec.lock

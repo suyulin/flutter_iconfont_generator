@@ -8,7 +8,7 @@ class IconFontFetcher {
       // Convert symbol URL to JS URL if needed
       String jsUrl = symbolUrl;
       if (!jsUrl.startsWith('http')) {
-        throw ArgumentError('Invalid symbol URL: $symbolUrl');
+        jsUrl = 'https:$jsUrl';
       }
 
       // If it's a symbol URL, convert to JS URL

@@ -35,7 +35,7 @@ dev_dependencies:
 
 # IconFont 配置
 iconfont:
-  symbol_url: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js"  # 从 iconfont.cn 获取
+  symbol_url: "//at.alicdn.com/t/c/font_4937193_gokuo0doel.js"  # 从 iconfont.cn 获取
   save_dir: "./lib/iconfont"                                # 输出目录
   trim_icon_prefix: "icon"                                  # 移除图标名前缀
   default_icon_size: 18                                     # 默认图标大小

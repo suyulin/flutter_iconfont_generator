@@ -39,7 +39,7 @@ Future<void> main(List<String> arguments) async {
     // 创建备份配置用于测试
     final testConfig = '''
 iconfont:
-  symbol_url: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js"
+  symbol_url: "//at.alicdn.com/t/c/font_4937193_gokuo0doel.js"
   save_dir: "./test_output"
   trim_icon_prefix: "icon"
   default_icon_size: 18

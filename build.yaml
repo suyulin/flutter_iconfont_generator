@@ -3,6 +3,17 @@ targets:
     builders:
       flutter_iconfont_generator:iconfont_builder:
         enabled: true
+
+builders:
+  iconfont_builder:
+    import: "package:flutter_iconfont_generator/builder.dart"
+    builder_factories: ["iconFontBuilder"]
+    build_extensions: {".dart": [".g.dart"]}
+    auto_apply: none
+    build_to: sourceault:
+    builders:
+      flutter_iconfont_generator:iconfont_builder:
+        enabled: true
         generate_for:
           - lib/iconfont.dart
 
