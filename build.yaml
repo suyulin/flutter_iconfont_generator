@@ -1,0 +1,15 @@
+targets:
+  $default:
+    builders:
+      flutter_iconfont_generator:iconfont_builder:
+        enabled: true
+        generate_for:
+          - lib/iconfont.dart
+
+builders:
+  iconfont_builder:
+    import: "package:flutter_iconfont_generator/builder.dart"
+    builder_factories: ["iconFontBuilder"]
+    build_extensions: {".dart": [".g.dart"]}
+    auto_apply: dependents
+    build_to: source
