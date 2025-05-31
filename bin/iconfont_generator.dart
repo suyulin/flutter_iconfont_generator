@@ -18,7 +18,7 @@ Future<void> main(List<String> arguments) async {
   }
 
   try {
-    print('🚀 Flutter IconFont Generator v2.0.0');
+    print('🚀 Flutter IconFont Generator v1.0.0');
     if (verbose) print('Running with verbose output...');
     print('');
 
