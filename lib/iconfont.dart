@@ -9,4 +9,3 @@
 
 // This file intentionally left mostly empty
 // The actual generation is handled by the builder
-const String _generatorMarker = 'iconfont_generator';

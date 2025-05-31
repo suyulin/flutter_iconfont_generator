@@ -1,5 +1,8 @@
 # Files and directories to exclude from pub package
 
+# Development lock file (should not be published)
+pubspec.lock
+
 # Example and test files
 example/
 example_app/
