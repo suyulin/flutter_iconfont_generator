@@ -9,16 +9,26 @@
 
 ## ✨ Features
 
-- 🚀 **Pure Dart Implementation** - No Node.js dependency, uses build_runner for code generation
+- 🚀 **Command Line Tool** - Simple command-line interface, no build_runner needed
 - 🎨 **Multi-color Support** - Render multi-color icons with custom color support  
 - 📦 **Pure Components** - No font files needed, uses SVG rendering for smaller bundle size
 - 🔄 **Automated Generation** - Automatically fetch latest icons from iconfont.cn and generate Dart code
 - 🛡️ **Null Safety** - Full Dart null safety support
-- ⚡ **Multiple Usage Methods** - Support for command-line tools and build_runner
+- ⚡ **Easy Installation** - Global installation via dart pub global activate
 
 ## 🚀 Quick Start
 
-### 1. Add Dependencies
+### Installation
+
+#### Method 1: Global Installation (Recommended)
+
+Install the command-line tool globally:
+
+```bash
+dart pub global activate flutter_iconfont_generator
+```
+
+#### Method 2: Add as Dev Dependency
 
 Add to your `pubspec.yaml`:
 
@@ -30,10 +40,9 @@ dependencies:
 
 dev_dependencies:
   flutter_iconfont_generator: ^2.0.0
-  build_runner: ^2.4.0
 ```
 
-### 2. Configure
+### Configuration
 
 Add iconfont configuration to your `pubspec.yaml`:
 
@@ -47,20 +56,36 @@ iconfont:
   null_safety: true                             # Enable null safety
 ```
 
-### 4. Generate Icon Code
+### Generate Icon Code
+
+#### Method 1: Command Line Tool (Recommended)
+
+After global installation:
 
 ```bash
-# Install dependencies
-dart pub get
+# Generate icons using pubspec.yaml configuration
+iconfont_generator
 
-# Method 1: Using build_runner (recommended)
-dart run build_runner build
+# Generate with custom parameters
+iconfont_generator --url "//at.alicdn.com/t/font_xxx.js" --output lib/icons
 
-# Method 2: Using simple generator
-dart run flutter_iconfont_generator:simple_generator
+# Show verbose output
+iconfont_generator --verbose
 
-# Method 3: Using full generator
+# Show help
+iconfont_generator --help
+```
+
+#### Method 2: Direct Dart Execution
+
+If not globally installed:
+
+```bash
+# Run from your project root
 dart run flutter_iconfont_generator:iconfont_generator
+
+# Or if you added it as a dev dependency
+dart run flutter_iconfont_generator
 ```
 
 ## 📖 Usage
@@ -78,6 +103,33 @@ IconFont(IconNames.user, size: 24)
 
 // With color
 IconFont(IconNames.settings, size: 32, color: '#ff0000')
+
+// With multiple colors (for multi-color icons)
+IconFont(IconNames.logo, size: 48, colors: ['#ff0000', '#00ff00', '#0000ff'])
+```
+
+### Command Line Options
+
+```bash
+# Basic usage
+iconfont_generator
+
+# Custom options
+iconfont_generator \
+  --url "//at.alicdn.com/t/c/font_4937193_3aohv86wocr.js" \
+  --output lib/icons \
+  --prefix icon \
+  --size 24 \
+  --verbose
+
+# Options:
+#   -h, --help      Show usage help
+#   -v, --verbose   Show verbose output
+#   -c, --config    Path to config file (default: pubspec.yaml)
+#   -u, --url       IconFont symbol URL (overrides config)
+#   -o, --output    Output directory (overrides config)
+#   -p, --prefix    Icon prefix to trim (overrides config)
+#   -s, --size      Default icon size (overrides config)
 ```
 
 ### Single Color Icons
@@ -112,16 +164,41 @@ IconFont(
 | `default_icon_size` | int | `18` | Default size for icons |
 | `null_safety` | bool | `true` | Enable null safety in generated code |
 
-## 🏗️ Build Runner Integration
+## 🔗 Getting Your Symbol URL
 
-Create `build.yaml` in your project root:
+1. Go to [iconfont.cn](https://www.iconfont.cn/)
+2. Create or open your icon project
+3. Go to project settings (项目设置)
+4. Find "FontClass/Symbol前缀" section
+5. Copy the JavaScript URL (should look like `//at.alicdn.com/t/c/font_xxx_xxx.js`)
 
-```yaml
-targets:
-  $default:
-    builders:
-      flutter_iconfont_generator:iconfont_builder:
-        enabled: true
+![Symbol URL Location](images/symbol-url.png)
+
+## 🚧 Troubleshooting
+
+### Common Issues
+
+**"No iconfont configuration found"**
+- Make sure you have the `iconfont:` section in your `pubspec.yaml`
+
+**"Please configure a valid symbol_url"**
+- Check that your symbol URL is from iconfont.cn and is accessible
+- The URL should start with `//at.alicdn.com/`
+
+**"No icons found in the SVG content"**
+- Verify your symbol URL is correct
+- Check that your iconfont project has icons
+- Try accessing the URL in a browser
+
+**Permission denied**
+- Make sure you have write permissions to the output directory
+
+### Debug Mode
+
+Use verbose mode to see detailed information:
+
+```bash
+iconfont_generator --verbose
 ```
 
 ## 📱 Example

@@ -63,7 +63,7 @@ flutter:
 
 # Icon font configuration for flutter_iconfont_generator
 iconfont:
-  symbol_url: "//at.alicdn.com/t/c/font_4937193_3aohv86wocr.js"  # Replace with your iconfont.cn URL
+  symbol_url: "//at.alicdn.com/t/c/font_4937193_vsmk6n2a9n.js"  # Replace with your iconfont.cn URL
   save_dir: "./lib/iconfont"
   trim_icon_prefix: "icon"
   default_icon_size: 18
