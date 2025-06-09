@@ -58,10 +58,24 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 Column(
                   children: [
-                    IconFont(IconNames.baselineHomePx,
-                        size: 32.0, color: '#FF5722'),
+                    IconFont(
+                      IconNames.baselineHomePx,
+                      size: 32.0,
+                      color: '#FF5722', // 使用十六进制颜色
+                    ),
                     const SizedBox(height: 8),
                     const Text('Home'),
+                  ],
+                ),
+                Column(
+                  children: [
+                    IconFont(
+                      IconNames.instance,
+                      size: 32.0,
+                      colors: ["#FF5733", "#FF5733"], // 使用十六进制颜色
+                    ),
+                    const SizedBox(height: 8),
+                    const Text('Instance'),
                   ],
                 ),
               ]),

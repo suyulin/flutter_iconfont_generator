@@ -165,11 +165,10 @@ class IconFontBuilder implements Builder {
 
       if (path.fill != null) {
         // Replace fill with dynamic color
-        buffer.write(
-            ' fill="\' + getColor($i, color, colors, \'${path.fill}\') + \'"');
+        buffer
+            .write(' fill="\${getColor($i, color, colors, \'${path.fill}\')}"');
       } else {
-        buffer.write(
-            ' fill="\' + getColor($i, color, colors, \'#333333\') + \'"');
+        buffer.write(' fill="\${getColor($i, color, colors, \'#333333\')}"');
       }
 
       // Add other attributes
