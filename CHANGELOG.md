@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-07-06
+
+### Changed
+- 📚 Separated documentation into English (README.md) and Chinese (README_CN.md) versions
+- 🔧 Enhanced build configuration to prevent conflicts with other generators
+- 📋 Improved troubleshooting section with build conflict resolution
+- 🎨 Removed redundant pub package badges for cleaner documentation
+
+### Fixed
+- 🐛 Fixed build conflicts by limiting builder scope in build.yaml
+- 🔨 Changed output file extension from .g.dart to .iconfont.g.dart to avoid conflicts
+- 📖 Fixed duplicate content in Chinese documentation
+
+### Improved
+- 🌐 Better internationalization with separate language documentation
+- 🛠️ Enhanced build.yaml configuration with specific file targeting
+- 📚 Added detailed solutions for common build conflicts
+
 ## [1.0.1] - 2025-06-11
 
 ### Changed
