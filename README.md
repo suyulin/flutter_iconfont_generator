@@ -192,6 +192,30 @@ IconFont(
 **Permission denied**
 - Make sure you have write permissions to the output directory
 
+**"Conflicting outputs" - Build conflicts with other generators**
+- If you encounter conflicts like "Both xxx and flutter_iconfont_generator:iconfont_builder may output", create or modify your `build.yaml` file to limit the builder scope:
+
+```yaml
+targets:
+  $default:
+    builders:
+      flutter_iconfont_generator:iconfont_builder:
+        enabled: true
+        generate_for:
+          - lib/iconfont/**
+          - lib/**/iconfont.dart
+        options:
+          include: 
+            - "lib/iconfont/**"
+            - "lib/**/iconfont.dart"
+```
+
+- Alternatively, run the command-line tool instead of build_runner:
+```bash
+# Use command-line tool to avoid build conflicts
+iconfont_generator
+```
+
 ### Debug Mode
 
 Use verbose mode to see detailed information:

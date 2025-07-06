@@ -204,6 +204,30 @@ IconFont(IconNames.home, size: 20)
 **权限被拒绝**
 - 确保你对输出目录有写权限
 
+**"输出冲突" - 与其他生成器的构建冲突**
+- 如果遇到类似 "Both xxx and flutter_iconfont_generator:iconfont_builder may output" 的冲突，创建或修改你的 `build.yaml` 文件来限制构建器范围：
+
+```yaml
+targets:
+  $default:
+    builders:
+      flutter_iconfont_generator:iconfont_builder:
+        enabled: true
+        generate_for:
+          - lib/iconfont/**
+          - lib/**/iconfont.dart
+        options:
+          include: 
+            - "lib/iconfont/**"
+            - "lib/**/iconfont.dart"
+```
+
+- 或者，使用命令行工具而不是 build_runner：
+```bash
+# 使用命令行工具避免构建冲突
+iconfont_generator
+```
+
 ### 调试模式
 
 使用详细模式查看详细信息：
