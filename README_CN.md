@@ -1,9 +1,6 @@
 # Flutter IconFont Generator
 
 [![pub package](https://img.shields.io/pub/v/flutter_iconfont_generator.svg)](https://pub.dev/packages/flutter_iconfont_generator)
-[![popularity](https://badges.bar/flutter_iconfont_generator/popularity)](https://pub.dev/packages/flutter_iconfont_generator/score)
-[![likes](https://badges.bar/flutter_iconfont_generator/likes)](https://pub.dev/packages/flutter_iconfont_generator/score)
-[![pub points](https://badges.bar/flutter_iconfont_generator/pub%20points)](https://pub.dev/packages/flutter_iconfont_generator/score)
 
 中文文档 | [English](./README.md)
 
