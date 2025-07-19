@@ -23,9 +23,6 @@ topics:
   - iconfont
   - svg
   - code-generation
-  - dart
-  - widgets
-  - ui
 
 environment:
   sdk: ">=2.17.0 <4.0.0"
