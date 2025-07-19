@@ -6,6 +6,7 @@
 ///
 /// Or for watch mode:
 /// dart run build_runner watch
+library flutter_iconfont_generator;
 
 // This file intentionally left mostly empty
 // The actual generation is handled by the builder

@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2025-07-19
+
+### Fixed
+- 🐛 Fixed critical type errors in configuration factory constructor
+- 🔧 Removed deprecated lint rules (invariant_booleans, iterable_contains_unrelated_type, list_remove_unrelated_type, prefer_equal_for_default_values)
+- 📝 Fixed dangling library doc comments by adding proper library declaration
+- 🧪 Cleaned up test files: removed unused imports and variables, fixed unnecessary null assertions
+- ✅ Resolved all flutter analyze errors and warnings
+
+### Improved
+- 🎯 Enhanced type safety with proper type casting in configuration parsing
+- 📋 Better code quality compliance with latest Dart analysis rules
+- 🧹 Cleaner test code without unused dependencies
+
 ## [1.0.2] - 2025-07-06
 
 ### Changed
