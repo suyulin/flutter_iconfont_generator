@@ -5,7 +5,7 @@ repository: https://github.com/suyulin/flutter_iconfont_generator
 issue_tracker: https://github.com/suyulin/flutter_iconfont_generator/issues
 documentation: https://github.com/suyulin/flutter_iconfont_generator/blob/main/README.md
 
-version: 1.0.2
+version: 1.0.3
 
 # Platform support declarations
 platforms:

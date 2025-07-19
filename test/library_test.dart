@@ -79,7 +79,8 @@ void main() {
                 d: 'M512 85.333333L938.666667 512H853.333333V896H597.333333V640H426.666667V896H170.666667V512H85.333333L512 85.333333Z',
                 fill: '#000000',
                 attributes: {
-                  'd': 'M512 85.333333L938.666667 512H853.333333V896H597.333333V640H426.666667V896H170.666667V512H85.333333L512 85.333333Z',
+                  'd':
+                      'M512 85.333333L938.666667 512H853.333333V896H597.333333V640H426.666667V896H170.666667V512H85.333333L512 85.333333Z',
                   'fill': '#000000',
                 },
               ),
@@ -92,7 +93,8 @@ void main() {
               SvgPath(
                 d: 'M512 512c123.712 0 224-100.288 224-224S635.712 64 512 64 288 164.288 288 288s100.288 224 224 224z m0 128c-149.504 0-448 74.752-448 224v96h896v-96c0-149.248-298.496-224-448-224z',
                 attributes: {
-                  'd': 'M512 512c123.712 0 224-100.288 224-224S635.712 64 512 64 288 164.288 288 288s100.288 224 224 224z m0 128c-149.504 0-448 74.752-448 224v96h896v-96c0-149.248-298.496-224-448-224z',
+                  'd':
+                      'M512 512c123.712 0 224-100.288 224-224S635.712 64 512 64 288 164.288 288 288s100.288 224 224 224z m0 128c-149.504 0-448 74.752-448 224v96h896v-96c0-149.248-298.496-224-448-224z',
                 },
               ),
             ],
@@ -157,17 +159,18 @@ void main() {
         // This test verifies the export is available without actually running the builder
         expect(() {
           // This would be used in a real build.yaml configuration
-          const builderConfig = {
-            'builders': {
-              'flutter_iconfont_generator|iconfont_builder': {
-                'import': 'package:flutter_iconfont_generator/builder.dart',
-                'builder_factories': ['iconFontBuilder'],
-                'build_extensions': {'.yaml': ['.dart']},
-                'auto_apply': 'dependents',
-                'build_to': 'source',
-              }
-            }
-          };
+          // Configuration example is commented out as it's not actually used
+          // {
+          //   'builders': {
+          //     'flutter_iconfont_generator|iconfont_builder': {
+          //       'import': 'package:flutter_iconfont_generator/builder.dart',
+          //       'builder_factories': ['iconFontBuilder'],
+          //       'build_extensions': {'.yaml': ['.dart']},
+          //       'auto_apply': 'dependents',
+          //       'build_to': 'source',
+          //     }
+          //   }
+          // };
         }, returnsNormally);
       });
     });
@@ -234,7 +237,7 @@ void main() {
 
         final symbols = SvgParser.parseSymbols(complexSvg);
         expect(symbols, hasLength(1));
-        
+
         final symbol = symbols.first;
         expect(symbol.paths, hasLength(2));
         expect(symbol.paths[0].attributes['stroke'], equals('#000000'));

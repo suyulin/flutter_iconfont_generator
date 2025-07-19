@@ -89,7 +89,7 @@ class IconFontConfig {
   /// ```dart
   /// // Uses default size (18)
   /// IconFont(IconNames.home)
-  /// 
+  ///
   /// // Override with custom size
   /// IconFont(IconNames.home, size: 24)
   /// ```
@@ -157,11 +157,11 @@ class IconFontConfig {
   /// ```
   factory IconFontConfig.fromMap(Map<String, dynamic> map) {
     return IconFontConfig(
-      symbolUrl: map['symbol_url'] ?? '',
-      saveDir: map['save_dir'] ?? './lib/iconfont',
-      trimIconPrefix: map['trim_icon_prefix'] ?? 'icon',
-      defaultIconSize: map['default_icon_size'] ?? 18,
-      nullSafety: map['null_safety'] ?? true,
+      symbolUrl: (map['symbol_url'] as String?) ?? '',
+      saveDir: (map['save_dir'] as String?) ?? './lib/iconfont',
+      trimIconPrefix: (map['trim_icon_prefix'] as String?) ?? 'icon',
+      defaultIconSize: (map['default_icon_size'] as int?) ?? 18,
+      nullSafety: (map['null_safety'] as bool?) ?? true,
     );
   }
 
