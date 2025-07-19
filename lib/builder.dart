@@ -6,13 +6,97 @@ import 'src/config.dart';
 import 'src/fetcher.dart';
 import 'src/svg_parser.dart';
 
-/// Builder for generating iconfont code
+/// A build_runner Builder for generating Flutter IconFont widgets from iconfont.cn icons.
+///
+/// This builder automatically fetches SVG icons from iconfont.cn and generates
+/// Flutter widgets with proper type safety and null safety support.
+///
+/// ## Configuration
+///
+/// Add the following configuration to your `pubspec.yaml`:
+///
+/// ```yaml
+/// iconfont:
+///   symbol_url: "//at.alicdn.com/t/font_xxx.js"  # Your iconfont.cn URL
+///   save_dir: "./lib/iconfont"                   # Output directory
+///   trim_icon_prefix: "icon"                     # Icon prefix to remove
+///   default_icon_size: 18                       # Default icon size
+///   null_safety: true                           # Enable null safety
+/// ```
+///
+/// ## Build Configuration
+///
+/// Add this builder to your `build.yaml`:
+///
+/// ```yaml
+/// targets:
+///   $default:
+///     builders:
+///       flutter_iconfont_generator|iconfont_builder:
+///         enabled: true
+/// ```
+///
+/// ## Usage
+///
+/// 1. Create a trigger file (e.g., `lib/iconfont.dart`)
+/// 2. Run `flutter packages pub run build_runner build`
+/// 3. Import and use the generated icons:
+///
+/// ```dart
+/// import 'package:your_app/iconfont.dart';
+///
+/// // Simple usage
+/// IconFont(IconNames.home)
+///
+/// // With custom size and color
+/// IconFont(IconNames.user, size: 24, color: '#ff0000')
+///
+/// // With multiple colors for multi-color icons
+/// IconFont(IconNames.multiColor, colors: ['#ff0000', '#00ff00', '#0000ff'])
+/// ```
+///
+/// ## Features
+///
+/// - **Type Safety**: Generated enum ensures compile-time icon name validation
+/// - **Null Safety**: Full null safety support when enabled
+/// - **Multi-color Icons**: Support for icons with multiple colors
+/// - **Customizable**: Configurable icon sizes, prefixes, and output directories
+/// - **Hot Reload**: Works seamlessly with Flutter hot reload
+/// - **SVG Rendering**: Uses flutter_svg for high-quality vector rendering
+///
+/// ## Error Handling
+///
+/// The builder includes comprehensive error handling:
+/// - Network failures when fetching icons
+/// - Invalid SVG content
+/// - Missing configuration
+/// - File system errors
+///
+/// All errors are logged with detailed information to help with debugging.
 class IconFontBuilder implements Builder {
+  /// Defines the build extensions for this builder.
+  ///
+  /// This builder processes `.dart` files and generates `.g.dart` files
+  /// containing the icon font widget code.
   @override
   Map<String, List<String>> get buildExtensions => {
         '.dart': ['.g.dart'],
       };
 
+  /// Main build method that processes input files and generates icon font code.
+  ///
+  /// This method:
+  /// 1. Validates the input file (must end with 'iconfont.dart')
+  /// 2. Reads iconfont configuration from pubspec.yaml
+  /// 3. Fetches SVG content from the configured URL
+  /// 4. Parses SVG symbols and generates Flutter widget code
+  /// 5. Writes the generated code to a .g.dart file
+  ///
+  /// Parameters:
+  /// - [buildStep]: The build step context providing input/output operations
+  ///
+  /// Throws:
+  /// - [Exception]: If there are network errors, parsing errors, or file system errors
   @override
   Future<void> build(BuildStep buildStep) async {
     try {
@@ -71,6 +155,19 @@ class IconFontBuilder implements Builder {
     }
   }
 
+  /// Generates the complete Flutter widget code from parsed SVG symbols.
+  ///
+  /// This method creates a complete Dart file containing:
+  /// - IconNames enum with all icon identifiers
+  /// - IconFont widget class with build method
+  /// - Helper methods for color management and enum conversion
+  ///
+  /// Parameters:
+  /// - [symbols]: List of parsed SVG symbols from iconfont.cn
+  /// - [config]: Configuration object with generation settings
+  ///
+  /// Returns:
+  /// - Complete Dart source code as a string
   String _generateIconFontCode(List<SvgSymbol> symbols, IconFontConfig config) {
     final names = <String>[];
     final cases = StringBuffer();
@@ -101,6 +198,25 @@ class IconFontBuilder implements Builder {
         .replaceAll('#convertCases#', convertCases.toString().trimRight());
   }
 
+  /// Converts a string to camelCase format suitable for Dart identifiers.
+  ///
+  /// This method:
+  /// 1. Removes or replaces invalid characters
+  /// 2. Handles numbers at the beginning of strings
+  /// 3. Converts to proper camelCase format
+  /// 4. Ensures the result is a valid Dart identifier
+  ///
+  /// Examples:
+  /// - "icon-home" → "home"
+  /// - "user-circle-o" → "userCircleO"
+  /// - "2-houses" → "icon2Houses"
+  /// - "test_icon" → "testIcon"
+  ///
+  /// Parameters:
+  /// - [input]: The input string to convert
+  ///
+  /// Returns:
+  /// - A valid camelCase Dart identifier
   String _toCamelCase(String input) {
     if (input.isEmpty) return input;
 
@@ -137,6 +253,19 @@ class IconFontBuilder implements Builder {
     return result;
   }
 
+  /// Generates an enum case name from an SVG symbol.
+  ///
+  /// This method:
+  /// 1. Extracts the icon ID from the symbol
+  /// 2. Removes the configured icon prefix if present
+  /// 3. Converts the result to camelCase
+  ///
+  /// Parameters:
+  /// - [symbol]: The SVG symbol to process
+  /// - [config]: Configuration containing the prefix to trim
+  ///
+  /// Returns:
+  /// - A camelCase enum identifier for the icon
   String _generateEnumCase(SvgSymbol symbol, IconFontConfig config) {
     String iconId = symbol.id;
 
@@ -153,6 +282,21 @@ class IconFontBuilder implements Builder {
     return _toCamelCase(iconId);
   }
 
+  /// Generates the SVG case string for a symbol in the widget's switch statement.
+  ///
+  /// This method creates the SVG XML that will be rendered for a specific icon.
+  /// It supports:
+  /// - Dynamic color replacement using the getColor helper
+  /// - Multiple paths within a single icon
+  /// - Preservation of other SVG attributes (stroke, opacity, etc.)
+  /// - Proper viewBox handling
+  ///
+  /// Parameters:
+  /// - [symbol]: The SVG symbol to convert to a case statement
+  /// - [config]: Configuration settings for the generation
+  ///
+  /// Returns:
+  /// - SVG XML string with dynamic color placeholders
   String _generateSvgCase(SvgSymbol symbol, IconFontConfig config) {
     final buffer = StringBuffer();
     buffer.writeln(
@@ -185,6 +329,26 @@ class IconFontBuilder implements Builder {
     return buffer.toString();
   }
 
+  /// Returns the Dart code template for the generated IconFont widget.
+  ///
+  /// The template includes:
+  /// - IconNames enum declaration
+  /// - IconFont StatelessWidget class
+  /// - Color management helper methods
+  /// - Enum conversion utilities
+  /// - Proper null safety syntax when enabled
+  ///
+  /// The template uses placeholders that are replaced with actual values:
+  /// - #names# → Comma-separated enum values
+  /// - #size# → Default icon size
+  /// - #cases# → Switch cases for icon rendering
+  /// - #convertCases# → String to enum conversion cases
+  ///
+  /// Parameters:
+  /// - [config]: Configuration object containing null safety and other settings
+  ///
+  /// Returns:
+  /// - Complete Dart code template with placeholders
   String _getTemplate(IconFontConfig config) {
     if (config.nullSafety) {
       return '''
@@ -316,5 +480,24 @@ class IconFont extends StatelessWidget {
   }
 }
 
-/// Builder factory function
+/// Builder factory function for build_runner integration.
+///
+/// This function is called by the build_runner framework to create
+/// an instance of the IconFontBuilder.
+///
+/// Usage in build.yaml:
+/// ```yaml
+/// targets:
+///   $default:
+///     builders:
+///       flutter_iconfont_generator|iconfont_builder:
+///         enabled: true
+///         builder_factories: ["iconFontBuilder"]
+/// ```
+///
+/// Parameters:
+/// - [options]: Build options passed from the build_runner configuration
+///
+/// Returns:
+/// - A new instance of IconFontBuilder
 Builder iconFontBuilder(BuilderOptions options) => IconFontBuilder();
